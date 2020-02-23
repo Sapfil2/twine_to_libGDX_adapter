@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TextBlock {
 
-    private static final String defaultTextureFilename = "defaultTextBlockBack.png";
-    private static final String defaultTextureCornerFilename = "defaultTextBlockCorner.png";
+    private static final String defaultTextureFilename = "defaultTextBlock.png";
 
     private final int x, y, width, height;
     private final GfxObject mainField;
@@ -13,8 +12,8 @@ public class TextBlock {
 
     public TextBlock(String id) {
 
-        mainField = new GfxObject(defaultTextureFilename);
-        corner = new GfxObject(defaultTextureCornerFilename);
+        mainField = new GfxObject(defaultTextureFilename, 0, 0, 8, 8);
+        corner = new GfxObject(defaultTextureFilename,8,0,8,8);
 
         if (id == null){
             x = 10; y = 470; width = 780; height = -100;
@@ -28,8 +27,8 @@ public class TextBlock {
     }
 
     public void draw(SpriteBatch sb) {
-        int borderWidth = mainField.texture.getWidth();
-        int borderHeight = mainField.texture.getHeight();
+        int borderWidth = mainField.getTextureRegionWidth();
+        int borderHeight = mainField.getTextureRegionHeight();
 
         mainField.draw(sb, x, y, width, height);
         mainField.draw(sb, x, y, width, borderHeight);

@@ -35,7 +35,7 @@ public class State {
         back = new GfxObject(dao.getBackTag()+".png");
         textBlock = new TextBlock(dao.getTextTag());
         gameObjectList = new LinkedList<>();
-        font.setColor(new Color(0x005050ff));
+        font.setColor(new Color(0xffff50ff));
     }
 
     public void render(SpriteBatch spriteBatch){
