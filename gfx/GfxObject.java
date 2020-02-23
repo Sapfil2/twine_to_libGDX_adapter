@@ -29,6 +29,7 @@ public class GfxObject {
     }
 
     private Texture getTexture (String textureFileName) {
+        System.out.println("Trying to load texture: " + textureFileName);
         if (textureMap.get(textureFileName) == null){
             textureMap.put(textureFileName, new Texture(textureFileName));
         }

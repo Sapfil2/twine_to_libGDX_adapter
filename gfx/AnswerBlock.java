@@ -58,9 +58,9 @@ public class AnswerBlock extends TextBlock {
 
         if (id == null) {
             x = 10;
-            y = 350;
+            y = 412;
             width = 780;
-            height = -25;
+            height = -15;
         } else {
             switch (id) {
                 default:

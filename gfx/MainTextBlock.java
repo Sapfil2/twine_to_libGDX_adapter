@@ -12,7 +12,7 @@ public class MainTextBlock extends TextBlock {
         super(textBlockContent, font, defaultTextureFilename);
 
         if (textBlockFormId == null){
-            x = 10; y = 470; width = 780; height = -100;
+            x = 10; y = 470; width = 780; height = -38;
             return;
         }
         switch (textBlockFormId) {
