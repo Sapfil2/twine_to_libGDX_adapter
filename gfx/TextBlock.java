@@ -1,34 +1,30 @@
 package com.sapfil.ironsoul.gfx;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 
-public class TextBlock {
+public abstract class TextBlock {
 
-    private static final String defaultTextureFilename = "defaultTextBlock.png";
-
-    private final int x, y, width, height;
+    protected int x, y, width, height;
+    private int borderWidth, borderHeight;
     private final GfxObject mainField;
     private final GfxObject corner;
+    private final BitmapFont font;
+    private final String content;
 
-    public TextBlock(String id) {
+    public TextBlock(String textBlockContent, BitmapFont font, String textureName) {
 
-        mainField = new GfxObject(defaultTextureFilename, 0, 0, 8, 8);
-        corner = new GfxObject(defaultTextureFilename,8,0,8,8);
+        this.font = font;
+        this.content = textBlockContent;
 
-        if (id == null){
-            x = 10; y = 470; width = 780; height = -100;
-            return;
-        }
-        switch (id) {
-            default:
-            case "tb1" : {x = 10; y = 470; width = 780; height = -100; break;}
-            case "tb2" : {x = 410; y = 470; width = 380; height = -240; break;}
-        }
+        mainField = new GfxObject(textureName, 0, 0, 8, 8);
+        corner = new GfxObject(textureName,8,0,8,8);
     }
 
     public void draw(SpriteBatch sb) {
-        int borderWidth = mainField.getTextureRegionWidth();
-        int borderHeight = mainField.getTextureRegionHeight();
+        this.borderWidth = mainField.getTextureRegionWidth();
+        this.borderHeight = mainField.getTextureRegionHeight();
 
         mainField.draw(sb, x, y, width, height);
         mainField.draw(sb, x, y, width, borderHeight);
@@ -40,21 +36,21 @@ public class TextBlock {
         corner.draw(sb, x, y + height, 180);
         corner.draw(sb, x + width, y + height, 270);
         corner.draw(sb, x + width, y, 0);
+
+        font.draw(sb, content,
+                x, y, width, Align.left, true);
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    public boolean isPointOnBlock(int x, int y) {
+        if (x < this.x - borderWidth){
+            return false;
+        } if (x > this.x + width + borderWidth){
+            return false;
+        } if (y < this.y - borderHeight){
+            return false;
+        } if (y > this.y - height + borderHeight){
+            return false;
+        }
+        return true;
     }
 }

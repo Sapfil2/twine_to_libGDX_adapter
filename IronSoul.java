@@ -22,7 +22,7 @@ public class IronSoul extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		twineStoryDB  = new TwineStoryDB("libgdxTest6");
+		twineStoryDB  = new TwineStoryDB("libgdxTest7");
 		stateMachine = new StateMachine(
 				(TwineStoryTable) twineStoryDB.getDataBaseTable("tw-story"));
 	}
