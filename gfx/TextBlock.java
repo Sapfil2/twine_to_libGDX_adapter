@@ -46,9 +46,9 @@ public abstract class TextBlock {
             return false;
         } if (x > this.x + width + borderWidth){
             return false;
-        } if (y < this.y - borderHeight){
+        } if (y > this.y + borderHeight){
             return false;
-        } if (y > this.y - height + borderHeight){
+        } if (y < this.y + height - borderHeight){
             return false;
         }
         return true;
