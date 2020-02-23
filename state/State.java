@@ -1,6 +1,7 @@
 package com.sapfil.ironsoul.state;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
@@ -8,6 +9,7 @@ import com.sapfil.ironsoul.db.story.TwineCardKey;
 import com.sapfil.ironsoul.db.story.TwineCardValue;
 import com.sapfil.ironsoul.event.Event;
 import com.sapfil.ironsoul.gfx.GfxObject;
+import com.sapfil.ironsoul.gfx.TextBlock;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,15 +24,18 @@ import java.util.List;
 public class State {
 
     final GfxObject back;
+    final TextBlock textBlock;
     final List<GameObject> gameObjectList;
     final TwineCardValue dao;
-    final BitmapFont font = new BitmapFont(Gdx.files.internal("font/arialblack.fnt"), false);
+    final BitmapFont font = new BitmapFont(Gdx.files.internal("font/arialblack2.fnt"), false);
 
     // THis constructor must be changed. It must get String as name and then read DB
     public State(TwineCardValue dao) {
         this.dao = dao;
-        back = new GfxObject(dao.getTags().get(0)+".png");
+        back = new GfxObject(dao.getBackTag()+".png");
+        textBlock = new TextBlock(dao.getTextTag());
         gameObjectList = new LinkedList<>();
+        font.setColor(new Color(0x005050ff));
     }
 
     public void render(SpriteBatch spriteBatch){
@@ -41,8 +46,12 @@ public class State {
                     go.position.y
                     );
         }
+        textBlock.draw(spriteBatch);
         font.draw(spriteBatch, dao.getTextBlock(),
-                10, 470, 800, Align.left, true);
+                textBlock.getX(),
+                textBlock.getY(),
+                textBlock.getWidth(),
+                Align.left, true);
     }
 
     public Event inputCheck(){

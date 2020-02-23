@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 public class TwineCardValue extends DAO {
 
     private final List<String> tags = new LinkedList<>();
+    private String backTag;
+    private String textTag;
     private final Map<String, TwineCardKey> linkMap = new HashMap<>();
     private String textBlock;
 
@@ -26,7 +28,30 @@ public class TwineCardValue extends DAO {
 
     private void parseTagsBlock(TagNode node) {
         String tagsString = node.getAttributes().get("tags");
-        tags.addAll(Arrays.asList(tagsString.split(" ")));
+        if (tagsString == null) {
+            return;
+        }
+        sortTags(tagsString);
+    }
+
+    /**
+     * This method needs to be refactored because on O(n^2) complexity
+     *
+     * @param tagsString read string value from "tags"-attribute of html-node
+     */
+    private void sortTags(String tagsString) {
+        if (tagsString.contains(" ")) {
+            tags.addAll(Arrays.asList(tagsString.split(" ")));
+        } else {
+            tags.add(tagsString);
+        }
+        for (String tag : tags){
+            if (tag.startsWith("b")){
+                backTag = tag;
+            } else if (tag.startsWith("tb")){
+                textTag = tag;
+            }
+        }
     }
 
     /**
@@ -67,5 +92,13 @@ public class TwineCardValue extends DAO {
 
     public String getTextBlock() {
         return textBlock;
+    }
+
+    public String getBackTag() {
+        return backTag;
+    }
+
+    public String getTextTag() {
+        return textTag;
     }
 }
