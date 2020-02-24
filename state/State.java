@@ -27,13 +27,13 @@ public class State {
     final TextBlock textBlock;
     final Map<TextBlock, TwineCardKey> answerBlockMap;
     final TwineCardValue dao;
-    final BitmapFont mainFont = new BitmapFont(Gdx.files.internal("font/arialblack2.fnt"), false);
-    final BitmapFont answerFont = new BitmapFont(Gdx.files.internal("font/arialblack2.fnt"), false);
+    final BitmapFont mainFont = new BitmapFont(Gdx.files.internal("arialblack2.fnt"), false);
+    final BitmapFont answerFont = new BitmapFont(Gdx.files.internal("arialblack2.fnt"), false);
 
     // THis constructor must be changed. It must get String as name and then read DB
     public State(TwineCardValue dao) {
         this.dao = dao;
-        back = new GfxObject(dao.getBackTag()+".png");
+        back = GfxObject.getGfxObject(dao.getBackTag()+".png");
         textBlock = new MainTextBlock(dao.getTextTag(), dao.getTextBlock(), mainFont);
 
         answerBlockMap = AnswerBlock.createAnswerBlocks(dao.getTextTag(), dao.getLinkMap(), answerFont);

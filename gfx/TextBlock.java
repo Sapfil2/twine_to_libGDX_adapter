@@ -18,8 +18,8 @@ public abstract class TextBlock {
         this.font = font;
         this.content = textBlockContent;
 
-        mainField = new GfxObject(textureName, 0, 0, 8, 8);
-        corner = new GfxObject(textureName,8,0,8,8);
+        mainField = GfxObject.getGfxObject(textureName, 0, 0, 8, 8);
+        corner = GfxObject.getGfxObject(textureName,8,0,8,8);
     }
 
     public void draw(SpriteBatch sb) {
